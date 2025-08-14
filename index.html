@@ -1,0 +1,189 @@
+
+<!--this code is payment section code-->
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Train Ticket Booking</title>-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container mt-5">-->
+<!--    <h2 class="text-center text-primary">Train Ticket Booking</h2>-->
+
+<!--    <form id="bookingForm" th:action="@{/ticket}" method="post" th:object="${passenger}" class="mt-4">-->
+<!--        <div class="row mb-3">-->
+<!--            <div class="col">-->
+<!--                <label>Name</label>-->
+<!--                <input type="text" th:field="*{name}" class="form-control" required>-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--                <label>Age</label>-->
+<!--                <input type="number" th:field="*{age}" class="form-control" required>-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--                <label>Gender</label>-->
+<!--                <select th:field="*{gender}" class="form-select" required>-->
+<!--                    <option value="">Select</option>-->
+<!--                    <option value="Male">Male</option>-->
+<!--                    <option value="Female">Female</option>-->
+<!--                    <option value="Other">Other</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="row mb-3">-->
+<!--            <div class="col">-->
+<!--                <label>From</label>-->
+<!--                <input type="text" th:field="*{from}" class="form-control" required>-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--                <label>To</label>-->
+<!--                <input type="text" th:field="*{to}" class="form-control" required>-->
+<!--            </div>-->
+<!--            <div class="col">-->
+<!--                <label>Date</label>-->
+<!--                <input type="date" th:field="*{date}" class="form-control" required>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="mb-3">-->
+<!--            <label>Train</label>-->
+<!--            <select th:field="*{trainNumber}" class="form-select" required>-->
+<!--                <option value="">Select Train</option>-->
+<!--                <option th:each="train : ${trains}"-->
+<!--                        th:value="${train.key}"-->
+<!--                        th:text="${train.value}">-->
+<!--                </option>-->
+<!--            </select>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Razorpay Button &ndash;&gt;-->
+<!--        <button id="payButton" type="button" class="btn btn-primary">Pay ₹550</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    document.getElementById('payButton').onclick = function () {-->
+<!--        fetch("/api/payment/create-order", {-->
+<!--            method: "POST",-->
+<!--            headers: { "Content-Type": "application/json" },-->
+<!--            body: JSON.stringify({ amount: 55000 }) // 550.00 in paise-->
+<!--        })-->
+<!--        .then(res => res.json())-->
+<!--        .then(order => {-->
+<!--            var options = {-->
+<!--                "key": "YOUR_KEY_ID", // Replace with your Razorpay Key ID-->
+<!--                "amount": order.amount,-->
+<!--                "currency": "INR",-->
+<!--                "name": "Train Ticket Booking",-->
+<!--                "description": "Train Ticket Payment",-->
+<!--                "order_id": order.id,-->
+<!--                "handler": function (response) {-->
+<!--                    alert("Payment successful! Payment ID: " + response.razorpay_payment_id);-->
+
+<!--                    // Optional: Submit the form after payment success-->
+<!--                    document.getElementById('bookingForm').submit();-->
+<!--                },-->
+<!--                "prefill": {-->
+<!--                    "name": document.querySelector('[name="name"]').value,-->
+<!--                }-->
+<!--            };-->
+<!--            var rzp = new Razorpay(options);-->
+<!--            rzp.open();-->
+<!--        })-->
+<!--        .catch(err => {-->
+<!--            alert("Error creating order: " + err);-->
+<!--        });-->
+<!--    };-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Train Ticket Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center text-primary">Train Ticket Booking</h2>
+
+    <form th:action="@{/ticket}" method="post" th:object="${passenger}" class="mt-4">
+        <div class="row mb-3">
+            <div class="col">
+                <label>Name</label>
+                <input type="text" th:field="*{name}" class="form-control" required>
+            </div>
+
+            <div class="col">
+                <label>Age</label>
+                <input type="number" th:field="*{age}" class="form-control" required>
+            </div>
+            <div class="col">
+                <label>Gender</label>
+                <select th:field="*{gender}" class="form-select" required>
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <label>From</label>
+                <input type="text" th:field="*{from}" class="form-control" required>
+            </div>
+
+            <div class="col">
+                <label>To</label>
+                <input type="text" th:field="*{to}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" th:field="*{email}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Date</label>
+                <input type="date" th:field="*{date}" class="form-control" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label>Train</label>
+            <select th:field="*{trainNumber}" class="form-select" required>
+                <option value="">Select Train</option>
+                <option th:each="train : ${trains}"
+                        value=""
+                        th:value="${train.key}"
+                        th:text="${train.value}">
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Book Ticket</button>
+    </form>
+</div>
+</body>
+</html>
+
+
+
+
+
+
